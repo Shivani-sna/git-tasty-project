@@ -1,5 +1,6 @@
  	<?php
  	// print_r($working_hours[0]->weekday);  ?>
+ 		<script type="text/javascript" src="<?php echo site_url('assets/js/core/libraries/jquery.min.js'); ?>"></script>
  <div class="page-header page-header-default">
 	<div class="page-header-content">
 		<div class="page-title">
@@ -120,14 +121,20 @@ if ($this->session->flashdata('info'))
 		<tr><th>Weekday</th>
 			<th>Start Time</th>
 			<th>End Time</th>
+			<th>Change</th>
 		</tr>
 
 		<?php foreach ($working_hours as $key => $value) {
 			?>
 			<tr>
 				<th><?php echo $value->weekday ?></th>
-				<th><?php echo $value->start_time ?></th>
-				<th><?php echo $value->end_time ?></th>
+
+				<th>
+					<input type="time" id="start_time_<?php echo $value->id ?>" name="start_time" value="<?php echo $value->start_time ?>" class="form-control"></th>
+				<th><input type="time" id="end_time_<?php echo $value->id ?>" name="end_time" value="<?php echo $value->end_time ?>" class="form-control"></th>
+				<th> 
+				  <td><input type="hidden" name="id" value="<?php echo $value->id ?>" id="id">
+				 <a href="" id="<?php echo $value->id ?>"class="btn btn-primary btn-success submit"><span class="glyphicon glyphicon-saved"></span> save</a></th>
 			</tr>
 		<?php } ?>
 	</tbody>
@@ -135,4 +142,46 @@ if ($this->session->flashdata('info'))
 	</div>
 	</div>
 	</div>
+	<script>
+      $(document).ready(function() 
+        {
+
+         $(".submit").click(function(event) 
+         {
+          
+            event.preventDefault();
+            // alert('hello');
+             var base_url='<?php echo base_url(); ?>';
+           var id  = $(this).attr('id');
+           // console.log(id);
+           var start = $('#start_time_'+id).val();
+           var end = $('#end_time_'+id).val();
+            // alert(id);
+            // alert(start);
+            // alert(end);
+            //  console.log(end);
+             //return false;
+     
+          $.ajax({
+            type: 'POST',
+            url: base_url+'admin/working_hours/update',  
+            data: {
+                id : id,
+                start:start,
+                end:end,
+            },
+            success: function (data) {
+             console.log(data);
+            
+            alert('Working Hours Updated');
+            }
+
+             });
+      
+          });
+
+        });
+
+     
+    </script>
 				
