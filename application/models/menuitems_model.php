@@ -13,7 +13,7 @@ class Menuitems_Model extends MY_model
         if($cat_id == null){
          $where=' WHERE c.id = m.category_id ';
         }else{
-          $where=' WHERE c.id ='.$cat_id;
+          $where=' WHERE c.id = m.category_id AND c.id ='.$cat_id;
         }
 
   		$query = $this->db->query("SELECT m.id,m.item,m.ingredient,m.rate,m.image,m.category_id,c.id as cid,c.name FROM menu_items AS m, categories AS c ".$where." ");
