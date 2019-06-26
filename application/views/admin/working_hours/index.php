@@ -1,4 +1,6 @@
+ 	<h1>Helllo</h1>
  	<?php
+
  	// print_r($working_hours[0]->weekday);  ?>
  		<script type="text/javascript" src="<?php echo site_url('assets/js/core/libraries/jquery.min.js'); ?>"></script>
  <div class="page-header page-header-default">
